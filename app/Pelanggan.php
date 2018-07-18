@@ -12,6 +12,9 @@ class Pelanggan extends Model
         'nama',
         'alamat',
         'email',
-        'nomor_telepon'
+        'nomor_telepon',
+        'panggilan',
+        'status',
+        'nama_perusahaan'
     ];
 }

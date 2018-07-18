@@ -25,27 +25,57 @@ class PelangganRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'nik' => [
-                'sometimes',
-                'required',
-                new CheckNIK
-            ],
-            'nama' => [
-                'required'
-            ],
-            'alamat' => [
-                'required'
-            ],
-            'email' => [
-                'required',
-                'email',
-                new CheckEmail
-            ],
-            'nomor_telepon' => [
-                'required'
-            ]
-        ];
+        switch($this->method()){
+            case 'POST': {
+                return [
+                    'nik' => [
+                        'required',
+                        new CheckNIK
+                    ],
+                    'nama' => [
+                        'required'
+                    ],
+                    'alamat' => [
+                        'required'
+                    ],
+                    'email' => [
+                        'required',
+                        'email',
+                        new CheckEmail
+                    ],
+                    'nomor_telepon' => [
+                        'required'
+                    ],
+                    'status' => [
+                        'required'
+                    ]
+                ];
+            }
+            case 'PUT' : {
+                return [
+                    'nik' => [
+                        'required'
+                    ],
+                    'nama' => [
+                        'required'
+                    ],
+                    'alamat' => [
+                        'required'
+                    ],
+                    'email' => [
+                        'required',
+                        'email'
+                    ],
+                    'nomor_telepon' => [
+                        'required'
+                    ],
+                    'status' => [
+                        'required'
+                    ]
+                ];
+            }
+            default:break;
+        }
     }
 
     public function messages()

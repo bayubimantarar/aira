@@ -31,7 +31,7 @@ Dasbor &raquo; Pelanggan &raquo; Form Ubah
           <div class="form-group row">
             <label for="example-text-input" class="col-2 col-form-label">NIK</label>
             <div class="col-4">
-              <input name="nik" class="form-control" type="number" value="{{ $pelanggan->nik }}" id="example-text-input" readonly />
+              <input name="nik" class="form-control" type="number" value="{{ $pelanggan->nik }}" id="example-text-input" />
             </div>
           </div>
           <div class="form-group row">

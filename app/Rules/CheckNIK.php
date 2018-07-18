@@ -28,7 +28,7 @@ class CheckNIK implements Rule
     public function passes($attribute, $value)
     {
         $pelanggan = Pelanggan::where('nik', $value)
-            ->first();
+            ->exists();
 
         if(empty($pelanggan)){
             return true;  

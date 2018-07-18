@@ -25,6 +25,7 @@ class CreateTablePenjualan extends Migration
             $table->string('jumlah_tiket');
             $table->string('total_harga');
             $table->string('status');
+            $table->string('nama_perusahaan')->nullable();
             $table->timestamps();
         });
     }

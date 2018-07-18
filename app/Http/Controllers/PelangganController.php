@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Request;
 use DataTables;
 use App\Pelanggan;
 use App\Http\Requests\PelangganRequest;
@@ -88,13 +89,36 @@ class PelangganController extends Controller
      */
     public function store(PelangganRequest $pelangganReq)
     {
-        $pelanggan = [
-            'nik' => $pelangganReq->nik,
-            'nama' => $pelangganReq->nama,
-            'alamat' => $pelangganReq->alamat,
-            'email' => $pelangganReq->email,
-            'nomor_telepon' => $pelangganReq->nomor_telepon,
-        ];
+        // $pelanggan = [
+        //     'nik' => $pelangganReq->nik,
+        //     'nama' => $pelangganReq->nama,
+        //     'alamat' => $pelangganReq->alamat,
+        //     'email' => $pelangganReq->email,
+        //     'nomor_telepon' => $pelangganReq->nomor_telepon,
+        // ];
+
+        if($pelangganReq->status == "Umum"){
+            $pelanggan = [
+                'nik' => $pelangganReq->nik,
+                'nama' => $pelangganReq->nama,
+                'alamat' => $pelangganReq->alamat,
+                'email' => $pelangganReq->email,
+                'nomor_telepon' => $pelangganReq->nomor_telepon,
+                'status' => $pelangganReq->status,
+                'panggilan' => $pelangganReq->panggilan,
+            ];
+        }else{
+            $pelanggan = [
+                'nik' => $pelangganReq->nik,
+                'nama' => $pelangganReq->nama,
+                'alamat' => $pelangganReq->alamat,
+                'email' => $pelangganReq->email,
+                'nomor_telepon' => $pelangganReq->nomor_telepon,
+                'status' => $pelangganReq->status,
+                'panggilan' => $pelangganReq->panggilan,
+                'perusahaan' => $pelangganReq->perusahaan,
+            ];
+        }
 
         $store = $this
             ->pelangganRepo
@@ -138,28 +162,29 @@ class PelangganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(pelangganRequest $pelangganReq, $id)
+    public function update(Request $request, $id)
     {
-        $pelanggan = [
-            'nik' => $pelangganReq->nik,
-            'nama' => $pelangganReq->nama,
-            'alamat' => $pelangganReq->alamat,
-            'email' => $pelangganReq->email,
-            'nomor_telepon' => $pelangganReq->nomor_telepon,
-        ];
+        
+        // $pelanggan = [
+        //     'nik' => $pelangganReq->nik,
+        //     'nama' => $pelangganReq->nama,
+        //     'alamat' => $pelangganReq->alamat,
+        //     'email' => $pelangganReq->email,
+        //     'nomor_telepon' => $pelangganReq->nomor_telepon,
+        // ];
 
-        if($request->nik == $request->nik){
-            $pelanggan = [
-                'nama' => $pelangganReq->nama,
-                'alamat' => $pelangganReq->alamat,
-                'email' => $pelangganReq->email,
-                'nomor_telepon' => $pelangganReq->nomor_telepon,
-            ];            
-        }
+        // if($request->nik == $request->nik){
+        //     $pelanggan = [
+        //         'nama' => $pelangganReq->nama,
+        //         'alamat' => $pelangganReq->alamat,
+        //         'email' => $pelangganReq->email,
+        //         'nomor_telepon' => $pelangganReq->nomor_telepon,
+        //     ];            
+        // }
 
-        $store = $this
-            ->pelangganRepo
-            ->updateDataPelanggan($pelanggan, $id);
+        // $store = $this
+        //     ->pelangganRepo
+        //     ->updateDataPelanggan($pelanggan, $id);
 
         return redirect('/pelanggan')->with([
             'notification' => 'Data berhasil diubah ...'

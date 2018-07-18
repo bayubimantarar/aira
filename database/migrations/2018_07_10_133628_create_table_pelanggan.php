@@ -16,10 +16,13 @@ class CreateTablePelanggan extends Migration
         Schema::create('pelanggan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nik');
+            $table->string('panggilan');
             $table->string('nama');
             $table->string('alamat');
             $table->string('email');
             $table->string('nomor_telepon');
+            $table->string('status');
+            $table->string('nama_perusahaan')->nullable();
             $table->timestamps();
         });
     }
