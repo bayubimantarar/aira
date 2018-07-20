@@ -106,24 +106,25 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        $penjualan = [
-            'nik' => $request->nik,
-            'nomor_tiket' => $request->nomor_tiket,
-            'kode_tiket' => $request->kode_tiket,
-            'tanggal_keberangkatan' => $request->tanggal_keberangkatan,
-            'kota_keberangkatan' => $request->kota_keberangkatan,
-            'kota_kedatangan' => $request->kota_kedatangan,
-            'harga_tiket' => $request->harga_tiket,
-            'jumlah_tiket' => $request->jumlah_tiket,
-            'total_harga' => $request->total_harga,
-            'status' => $request->status
-        ];
+        dd($request->all());
+        // $penjualan = [
+        //     'nik' => $request->nik,
+        //     'nomor_tiket' => $request->nomor_tiket,
+        //     'kode_tiket' => $request->kode_tiket,
+        //     'tanggal_keberangkatan' => $request->tanggal_keberangkatan,
+        //     'kota_keberangkatan' => $request->kota_keberangkatan,
+        //     'kota_kedatangan' => $request->kota_kedatangan,
+        //     'harga_tiket' => $request->harga_tiket,
+        //     'jumlah_tiket' => $request->jumlah_tiket,
+        //     'total_harga' => $request->total_harga,
+        //     'status' => $request->status
+        // ];
 
-        $store = $this
-            ->penjualanRepo
-            ->storeDataPenjualan($penjualan);
+        // $store = $this
+        //     ->penjualanRepo
+        //     ->storeDataPenjualan($penjualan);
 
-        return redirect('/penjualan');
+        // return redirect('/penjualan');
     }
 
     /**

@@ -29,38 +29,44 @@ Dasbor &raquo; Penjualan &raquo; Form Penjualan Baru
           <h6>Detail Pelanggan</h6>
           <hr />
           @csrf
-          <div class="form-row">
-            <div class="col-md-4">
-              <label for="validationServer01">Pelanggan</label>
-              <select name="pelanggan" id="pelanggan" class="form-control">
-                <option value="">--- Pilih Pelanggan ---</option>
-                @foreach($pelanggan as $item)
-                  <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                @endforeach
-              </select>
+          <div id="form-pelanggan">
+            <button type="button" class="r-btnAdd"><i class="fa fa-plus"></i> Pelanggan</button>
+            <div class="r-group">
+              <div class="form-row">
+                <div class="col-md-4">
+                  <label for="validationServer01">Pelanggan</label>
+                  <select name="pelanggan" id="pelanggan0" class="select-pelanggan form-control" data-pattern-id="pelanggan++">
+                    <option value="">--- Pilih Pelanggan ---</option>
+                    @foreach($pelanggan as $item)
+                      <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="">NIK</label>
+                  <input type="text" name="nik[0]" data-pattern-name="nik[++]" class="form-control" id="nik0" data-pattern-id="nik++" readonly>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="">Nama Lengkap</label>
+                  <input type="text" class="form-control" id="nama" readonly>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationServerUsername">Email</label>
+                  <input type="text" class="form-control" id="email" readonly>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationServerUsername">Nomor Telepon</label>
+                  <input type="text" class="form-control" id="nomor_telepon" readonly>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationServerUsername">Alamat</label>
+                  <textarea name="" rows="3" class="form-control" id="alamat" readonly></textarea>
+                </div>
+              </div>
             </div>
-            <div class="col-md-4 mb-3">
-              <label for="">NIK</label>
-              <input type="text" name="nik" class="form-control" id="nik" readonly>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="">Nama Lengkap</label>
-              <input type="text" class="form-control" id="nama" readonly>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="validationServerUsername">Email</label>
-              <input type="text" class="form-control" id="email" readonly>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="validationServerUsername">Nomor Telepon</label>
-              <input type="text" class="form-control" id="nomor_telepon" readonly>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="validationServerUsername">Alamat</label>
-              <textarea name="" rows="3" class="form-control" id="alamat" readonly></textarea>
-            </div>
+            <button type="button" class="r-btnRemove"><i class="fa fa-times"></i> Pelanggan</button>
           </div>
-          <h6>Detail Tiket</h6>
+          {{-- <h6>Detail Tiket</h6>
           <hr />
           <div class="form-row">
             <div class="col-md-4">
@@ -104,7 +110,7 @@ Dasbor &raquo; Penjualan &raquo; Form Penjualan Baru
               <label for="validationServerUsername">Total Harga *</label>
               <input type="number" name="total_harga" class="form-control" id="total_harga" readonly />
             </div>
-          </div>
+          </div> --}}
           <div class="form-row">
             <div class="col-md4">
               <p class="text-danger">PS: Label yang mempunyai simbol <b>(*)</b> wajib diisi.</p>
@@ -119,21 +125,54 @@ Dasbor &raquo; Penjualan &raquo; Form Penjualan Baru
 @endsection
 
 @push('javaScript')
+<script src="{{ asset('/assets/js/jquery.form-repeater.js') }}"></script>
 <script>
   $(document).ready(function(){
-    $('#pelanggan').change(function(){
-      var id = $('#pelanggan').val();
+    $('#form-pelanggan').repeater({
+      btnAddClass: 'r-btnAdd',
+      btnRemoveClass: 'r-btnRemove',
+      groupClass: 'r-group',
+      minItems: 1,
+      maxItems: 0,
+      startingIndex: 0,
+      showMinItemsOnLoad: true,
+      reindexOnDelete: true,
+      repeatMode: 'append',
+      animation: 'fade',
+      animationSpeed: 400,
+      animationEasing: 'swing',
+      clearValues: true
+    });
+
+    // function cari(){
+    //   $('.select-pelanggan').change(function(){
+    //     alert($(this).attr('id'));
+    //     // console.log('clicked');
+    //   });
+    // }
+      // $.ajax({
+      //   url: '/pelanggan/json/single-data-pelanggan/'+id,
+      //   type: 'get',
+      //   dataType: 'json',
+      //   success: function(result){
+      //     $('#nik').val(result.data.nik);
+      //     $('#nama').val(result.data.nama);
+      //     $('#email').val(result.data.email);
+      //     $('#nomor_telepon').val(result.data.nomor_telepon);
+      //     $('#alamat').val(result.data.alamat);
+      //   }
+      // });
+    // }
+    $('[id*="pelanggan"]').change(function(){
+      // alert('Hello');
+      var id = $('[id*="pelanggan"]').val();
       console.log(id);
       $.ajax({
         url: '/pelanggan/json/single-data-pelanggan/'+id,
         type: 'get',
         dataType: 'json',
         success: function(result){
-          $('#nik').val(result.data.nik);
-          $('#nama').val(result.data.nama);
-          $('#email').val(result.data.email);
-          $('#nomor_telepon').val(result.data.nomor_telepon);
-          $('#alamat').val(result.data.alamat);
+          $('[id*=nik]').val(result.data.nik);
         }
       });
     });

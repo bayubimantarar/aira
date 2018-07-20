@@ -99,7 +99,7 @@ Dasbor &raquo; Pelanggan &raquo; Form Pelanggan Baru
 @push('javaScript')
 <script>
   $(document).ready(function(){
-    if($('#nama_perusahaan').val() == null){
+    if($('#nama_perusahaan').val() == ''){
       $('#perusahaan-form').hide();
     }else{
       $('#perusahaan-form').show();

@@ -28,40 +28,71 @@ Dasbor &raquo; Pelanggan &raquo; Form Ubah
         <form action="/pelanggan/ubah/{{ $pelanggan->id }}" method="post">
           @csrf
           <input name="_method" type="hidden" value="put">
-          <div class="form-group row">
-            <label for="example-text-input" class="col-2 col-form-label">NIK</label>
-            <div class="col-4">
-              <input name="nik" class="form-control" type="number" value="{{ $pelanggan->nik }}" id="example-text-input" />
+          <div class="form-row">
+            <div class="col-md-4 col-xs-12 mb-3">
+              <label>Status *</label>
+              <select name="status" class="form-control" id="status">
+                @if($pelanggan->status == 'Umum')
+                  <option value="Umum" id="umum" selected>Umum</option>
+                  <option value="Perusahaan" id="perusahaan">Perusahaan</option>
+                @elseif($pelanggan->status == 'Perusahaan')
+                  <option value="Umum" id="umum">Umum</option>
+                  <option value="Perusahaan" id="perusahaan" selected>Perusahaan</option>
+                @else
+                  <option value="Umum id="umum"">Umum</option>
+                  <option value="Perusahaan" id="perusahaan">Perusahaan</option>
+                @endif
+              </select>
+            </div>
+            <div class="col-md-4 col-xs-12 mb-3" id="perusahaan-form">
+              <label>Nama Perusahaan *</label>
+              <input type="text" name="nama_perusahaan" class="form-control" placeholder="PT. Maju Sejahtera" id="nama_perusahaan" value="{{ $pelanggan->nama_perusahaan }}" />
             </div>
           </div>
-          <div class="form-group row">
-            <label for="example-text-input" class="col-2 col-form-label">Nama Lengkap</label>
-            <div class="col-5">
-              <input name="nama" class="form-control" type="text" value="{{ $pelanggan->nama }}" id="example-text-input" />
+          <div class="form-row">
+            <div class="col-md-4 col-xs-12 mb-3">
+              <label>NIK *</label>
+              <input type="text" name="nik" class="form-control" placeholder="421707250996" value="{{ $pelanggan->nik }}" />
             </div>
           </div>
-          <div class="form-group row">
-            <label for="example-email-input" class="col-2 col-form-label">Email</label>
-            <div class="col-5">
-              <input name="email" class="form-control" type="email" value="{{ $pelanggan->email }}" id="example-email-input" />
+          <div class="form-row">
+            <div class="col-md-2">
+              <label>Panggilan</label>
+              <select name="panggilan" class="form-control">
+                @if($pelanggan->panggilan == 'Mr.')
+                  <option value="Mr." selected>Mr.</option>
+                  <option value="Mrs.">Mrs.</option>
+                @elseif($pelanggan->panggilan == 'Mrs.')
+                  <option value="Mr.">Mr.</option>
+                  <option value="Mrs." selected>Mrs.</option>
+                @endif
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Nama Lengkap</label>
+                <input type="text" name="nama" class="form-control" placeholder="John Doe" value="{{ $pelanggan->nama }}" />
             </div>
           </div>
-          <div class="form-group row">
-            <label for="example-text-input" class="col-2 col-form-label">Nomor Telepon</label>
-            <div class="col-5">
-              <input name="nomor_telepon" class="form-control" type="number" value="{{ $pelanggan->nomor_telepon }}" id="example-text-input" />
+          <div class="form-row">
+            <div class="col-md-4 col-xs-12 mb-3">
+              <label>Email *</label>
+              <input type="email" name="email" class="form-control" placeholder="contact@johndoe.com" value="{{ $pelanggan->email }}" />
+            </div>
+            <div class="col-md-4 col-xs-12 mb-3">
+              <label>Nomor Telepon *</label>
+              <input type="number" name="nomor_telepon" class="form-control" placeholder="0895332055486" value="{{ $pelanggan->nomor_telepon }}"/>
             </div>
           </div>
-          <div class="form-group row">
-            <label for="example-tel-input" class="col-2 col-form-label">Alamat</label>
-            <div class="col-6">
-              <textarea name="alamat" id="" rows="5" class="form-control">{{ $pelanggan->alamat }}</textarea>
+          <div class="form-row">
+            <div class="col-md-8 col-xs-12 mb-3">
+              <label>Alamat *</label>
+              <textarea name="alamat" id="" rows="5" class="form-control" placeholder="jl. Sukamenak No.141, Bandung">{{ $pelanggan->alamat }}</textarea>
             </div>
           </div>
-          <div class="form-group row">
-            <label for="example-tel-input" class="col-2 col-form-label"></label>
-            <div class="col-6">
-              <button type="submit" class="btn btn-primary"> <i class="fa fa-check"></i> Simpan</button>
+          <div class="form-row">
+            <div class="col-md-8 col-xs-12 mb-3">
+              <p class="text-danger">PS: label yang mempunyai simbol <b>(*)</b> wajib diisi fieldnya.</p>
+              <button type="submit" class="btn btn-primary"> <i class="ion ion-checkmark"></i> Simpan</button>
             </div>
           </div>
         </form>
@@ -70,3 +101,23 @@ Dasbor &raquo; Pelanggan &raquo; Form Ubah
   </div><!-- /.col-md-12 -->
 </div>
 @endsection
+
+@push('javaScript')
+<script>
+  $(document).ready(function(){
+    if($('#nama_perusahaan').val() == ''){
+      $('#perusahaan-form').hide();
+    }else{
+      $('#perusahaan-form').show();
+    }
+    $('#status').change(function(){
+      console.log($(this).val());
+      if($(this).val() == 'Perusahaan'){
+        $('#perusahaan-form').show();
+      }else{
+        $('#perusahaan-form').hide();
+      }
+    });
+  });
+</script>
+@endpush

@@ -15,17 +15,17 @@ class CreateTablePenjualan extends Migration
     {
         Schema::create('penjualan', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('invoice');
+            $table->string('letter_of_guarantee');
+            $table->string('remakrs');
+            $table->string('penjualan');
+            $table->string('pembelian');
+            $table->timestamp('tanggal_bayar');
+            $table->string('pembayaran_via');
+            $table->string('agent');
+            $table->string('nomor_tiket')->nullable();
+            $table->string('kode_boking')->nullable();
             $table->string('nik');
-            $table->string('nomor_tiket');
-            $table->string('kode_tiket');
-            $table->timestamp('tanggal_keberangkatan');
-            $table->string('kota_keberangkatan');
-            $table->string('kota_kedatangan');
-            $table->string('harga_tiket');
-            $table->string('jumlah_tiket');
-            $table->string('total_harga');
-            $table->string('status');
-            $table->string('nama_perusahaan')->nullable();
             $table->timestamps();
         });
     }
